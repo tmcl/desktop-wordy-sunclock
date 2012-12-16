@@ -12,8 +12,8 @@ import NumbersToWords
 data RomanTime = Watch Float | Hora Float
 
 timepart :: RomanTime -> Float
-timepart (Watch x) = x + 12
-timepart (Hora x)  = x
+timepart (Watch x) = x
+timepart (Hora x)  = x + 12
 
 instance Show RomanTime where
 	show = rtWords
@@ -23,7 +23,7 @@ instance Show RomanTime where
 rtWords :: RomanTime -> String
 rtWords t = makeRomanTimeWords a b
 	where
-		h = timepart t
+		h = timepart t + (1/24)
 		a = floor h
 		b = floor $ (h - (fromInteger $ floor h)) * 12
 
@@ -52,13 +52,13 @@ flipSmallParts :: Num a => a -> a
 flipSmallParts n = 6 + (-1) * (n-6)
 
 bigpart :: Integer -> String
-bigpart 0             = "sunrise"
-bigpart 6             = "midday"
-bigpart 12            = "sunset"
-bigpart 18            = "midnight"
-bigpart x | x < 12    = cardinal x ++ " hour"
-bigpart x | x > 12    = cardinal (x-12) ++ " watch"
-bigpart _ | otherwise = "foob?"
+bigpart x | x == 12   = "sunrise"
+          | x == 18   = "midday"
+          | x ==  0   = "sunset"
+          | x ==  6   = "midnight"
+          | x <  12   = cardinal x ++ " watch"
+          | x >  12   = cardinal (x-12) ++ " hour"
+          | otherwise = "foob?"
 
 data Refers = Same | Next
 	deriving Eq
@@ -98,7 +98,9 @@ makeRomanTimeWords :: Integer -> Integer -> String
 makeRomanTimeWords a b = shownSmallPart a b ++ pronoun a b ++ shownHourPart a b
 
 horaTime :: Location -> ZonedTime -> String
-horaTime l = show . romantime l
+horaTime l zt = (show rt) ++ "; " ++ (show $ timepart rt)
+	where
+		rt = romantime l zt
       
 suntimes :: Location -> Day -> (UTCTime, UTCTime, UTCTime, UTCTime)
 suntimes location day = ( sunset  yesterday location
