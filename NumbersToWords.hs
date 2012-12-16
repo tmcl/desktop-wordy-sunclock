@@ -1,0 +1,33 @@
+module NumbersToWords
+where
+
+wordnum  1 = "one"
+wordnum  2 = "two"
+wordnum  3 = "three"
+wordnum  4 = "four"
+wordnum  5 = "five"
+wordnum  6 = "six"
+wordnum  7 = "seven"
+wordnum  8 = "eight"
+wordnum  9 = "nine"
+wordnum 10 = "ten"
+wordnum 11 = "eleven"
+wordnum 12 = "twelve"
+wordnum  x = show x
+
+cardinal  1 = "first"
+cardinal  2 = "second"
+cardinal  3 = "third"
+cardinal  4 = "fourth"
+cardinal  5 = "fifth"
+cardinal  6 = "sixth"
+cardinal  7 = "seventh"
+cardinal  8 = "eighth"
+cardinal  9 = "ninth"
+cardinal 10 = "tenth"
+cardinal 11 = "eleventh"
+cardinal 12 = "twelfth"
+cardinal x | x `mod` 10 == 1 = show x ++ "st"
+           | x `mod` 10 == 2 = show x ++ "nd"
+           | x `mod` 10 == 3 = show x ++ "rd"
+           | otherwise = show x ++ "th"

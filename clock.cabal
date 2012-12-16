@@ -1,0 +1,12 @@
+Name:          clock
+Build-Type:    Simple
+Version:       0.0
+Cabal-Version: >=1.2
+data-files: theme.gtkrc
+Extra-source-files: TimeToString.hs
+
+Executable tristansClock
+   Main-is:          Gui.hs
+   Build-Depends:    base>=3, gtk, text, time   
+   C-Sources:        gdk_property_change_wrapper.c, sunrise.c
+   Ghc-options:       -Wall
