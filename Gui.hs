@@ -5,7 +5,7 @@ import Data.Time.LocalTime
 import qualified Data.Text as T
 import Graphics.UI.Gtk
 import Graphics.UI.Gtk.Gdk.Events
---import System.Time
+import System.Environment
 import TimeToString
 import TimeToHoratime
 import Coordinates
@@ -67,7 +67,8 @@ mainWindow = do
               , windowAcceptFocus := False
               , windowDecorated := False
               ]
-   rcParse "theme.gtkrc"
+   app_dir <- getEnv "APP_DIR"
+   rcParse $ app_dir ++ "/theme.gtkrc"
    getTimestring >>= labelSetText oclockLabel
    windowSetKeepAbove window True
    windowStick window
@@ -91,7 +92,7 @@ getDimensions :: (WidgetClass s) => s -> IO (Int, Int)
 getDimensions widget = do
    (Requisition _ height) <- widgetSizeRequest widget
    width <- screenWidth
-   return (width, height) 
+   return ( (width < 2000 ? width $ width `div` 2)-46, height ) 
 
 timehandler :: (LabelClass s1, LabelClass s2) => s1 -> s2 -> IO Bool
 timehandler oclockLabel horaLabel = do

@@ -8,6 +8,7 @@ import Data.Time.Clock
 import Data.Time.Calendar
 import Data.Time.LocalTime
 import NumbersToWords
+import Text.Printf
 
 data RomanTime = Watch Float | Hora Float
 
@@ -29,7 +30,7 @@ rtWords t = makeRomanTimeWords a b
 
 nexthour :: (Num a, Ord a) => a -> a
 nexthour a 
-	| 0 <= a && a < 24 = a + 1
+	| 0 <= a && a < 23 = a + 1
    | otherwise        = 0
 
 smallpart :: Integer -> String
@@ -54,7 +55,7 @@ flipSmallParts n = 6 + (-1) * (n-6)
 bigpart :: Integer -> String
 bigpart x | x == 12   = "sunrise"
           | x == 18   = "midday"
-          | x ==  0   = "sunset"
+          | x == 0    = "sunset"
           | x ==  6   = "midnight"
           | x <  12   = cardinal x ++ " watch"
           | x >  12   = cardinal (x-12) ++ " hour"
@@ -98,9 +99,10 @@ makeRomanTimeWords :: Integer -> Integer -> String
 makeRomanTimeWords a b = shownSmallPart a b ++ pronoun a b ++ shownHourPart a b
 
 horaTime :: Location -> ZonedTime -> String
-horaTime l zt = (show rt) ++ "; " ++ (show $ timepart rt)
+horaTime l zt = (show rt) ++ "; " ++ rawnumber --(show $ timepart rt)
 	where
 		rt = romantime l zt
+		rawnumber = printf "%.3f" (timepart rt)
       
 suntimes :: Location -> Day -> (UTCTime, UTCTime, UTCTime, UTCTime)
 suntimes location day = ( sunset  yesterday location

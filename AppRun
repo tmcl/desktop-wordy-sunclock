@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+PROG=tristansClock
+
+APP_DIR=`dirname "$0"`
+APP_DIR=`cd "$APP_DIR";pwd`
+export APP_DIR
+
+APP_NAME="`basename $APP_DIR`"
+EXEC_NAME="`basename $0`"
+
+$APP_DIR/dist/build/tristansClock/tristansClock
