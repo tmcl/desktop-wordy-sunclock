@@ -7,6 +7,6 @@ Extra-source-files: TimeToString.hs
 
 Executable tristansClock
    Main-is:          Gui.hs
-   Build-Depends:    base>=3, gtk, text, time   
+   Build-Depends:    base>=3, gtk, text, time, old-locale, mtl
    C-Sources:        gdk_property_change_wrapper.c, sunrise.c
    Ghc-options:       -Wall

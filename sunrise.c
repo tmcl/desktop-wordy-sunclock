@@ -198,27 +198,42 @@ double calcSunDeclination(double t)
 }
 
 
-double calcHourAngleSunrise(double lat, double solarDec)
+double twilightAngle = 96.833; // degrees
+double civilSunAngle = 90.833; // degrees
+
+double calcMorningAngle( double lat, double solarDec, double angle )
 {
   double latRad = degToRad(lat);
   double sdRad  = degToRad(solarDec);
 
-
-
-  double HA = (acos(cos(degToRad(90.833))/(cos(latRad)*cos(sdRad))-tan(latRad) * tan(sdRad)));
+  double HA = (acos(cos(degToRad(angle))/(cos(latRad)*cos(sdRad))-tan(latRad) * tan(sdRad)));
 
   return HA;              // in radians
 }
 
+double calcEveningAngle( double lat, double solarDec, double angle )
+{
+	return -calcMorningAngle( lat, solarDec, angle);
+}
+
+double calcHourAngleDawn( double lat, double solarDec )
+{
+	return calcMorningAngle( lat, solarDec, twilightAngle );
+}
+
+double calcHourAngleDusk( double lat, double solarDec )
+{
+	return calcEveningAngle( lat, solarDec, twilightAngle );
+}
+
+double calcHourAngleSunrise(double lat, double solarDec)
+{
+	return calcMorningAngle( lat, solarDec, civilSunAngle );
+}
+
 double calcHourAngleSunset(double lat, double solarDec)
 {
-  double latRad = degToRad(lat);
-  double sdRad  = degToRad(solarDec);
-
-
-  double HA = (acos(cos(degToRad(90.833))/(cos(latRad)*cos(sdRad))-tan(latRad) * tan(sdRad)));
-
-  return -HA;              // in radians
+	return calcEveningAngle( lat, solarDec, civilSunAngle );
 }
 
 
@@ -294,8 +309,8 @@ double calcSunriseUTC(double JD, double latitude, double longitude)
 		return timeUTC;
 	}
 
-double calcSunsetUTC(double JD, double latitude, double longitude)
- {
+double calcEveningTimeUTC(double JD, double latitude, double longitude, double angle)
+{
 
 	double t = calcTimeJulianCent(JD);
 
@@ -304,7 +319,7 @@ double calcSunsetUTC(double JD, double latitude, double longitude)
 
 	double  eqTime = calcEquationOfTime(t);
 	double  solarDec = calcSunDeclination(t);
-	double  hourAngle = calcHourAngleSunset(latitude, solarDec);
+	double  hourAngle = calcEveningAngle(latitude, solarDec, angle);
         double  delta = longitude - radToDeg(hourAngle);
 	double  timeDiff = 4 * delta;	// in minutes of time	
 	double  timeUTC = 720 + timeDiff - eqTime;	// in minutes	
@@ -315,7 +330,7 @@ double calcSunsetUTC(double JD, double latitude, double longitude)
          solarDec = calcSunDeclination(newt);
 		
 		
-		hourAngle = calcHourAngleSunset(latitude, solarDec);
+		hourAngle = calcEveningAngle(latitude, solarDec, angle);
 		delta = longitude - radToDeg(hourAngle);
 		timeDiff = 4 * delta;
 		timeUTC = 720 + timeDiff - eqTime; // in minutes
@@ -324,7 +339,17 @@ double calcSunsetUTC(double JD, double latitude, double longitude)
 
 
 		return timeUTC;
-	}
+}
+
+double calcSunsetUTC(double JD, double latitude, double longitude)
+{
+	return calcEveningTimeUTC( JD, latitude, longitude, civilSunAngle );
+}
+
+double calcDuskUTC(double JD, double latitude, double longitude)
+{
+	return calcEveningTimeUTC( JD, latitude, longitude, twilightAngle );
+}
 
 
 

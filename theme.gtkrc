@@ -2,10 +2,19 @@
 style "tclock-label-style"
 {
 	fg[NORMAL] = { 0.9, 0.9, 0.9 }
+	fg[ACTIVE] = { 0.9, 0.9, 0.9 }
+	fg[PRELIGHT] = { 0.9, 0.9, 0.9 }
+	fg[INSENSITIVE] = { 0.9, 0.9, 0.9 }
 	bg[NORMAL] = { 0, 0, 0 }
+	bg[ACTIVE] = { 0, 0, 0 }
+	bg[PRELIGHT] = { 0, 0, 0 }
+	bg[INSENSITIVE] = { 0, 0, 0 }
 	font_name = "Sans Bold 9"
+
+	engine "svg" {}
 }
 
 
 class "GtkLabel" style "tclock-label-style"
 class "GtkWidget" style "tclock-label-style"
+class "GtkButton" style "tclock-label-style"

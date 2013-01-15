@@ -1,6 +1,7 @@
 module NumbersToWords
 where
 
+wordnum :: (Eq a, Integral a, Show a) => a -> String
 wordnum  1 = "one"
 wordnum  2 = "two"
 wordnum  3 = "three"
@@ -30,6 +31,7 @@ wordnum 80 = "eighty"
 wordnum 90 = "ninty"
 wordnum  x = show x
 
+cardinal :: (Eq a, Integral a, Show a) => a -> String
 cardinal  1 = "first"
 cardinal  2 = "second"
 cardinal  3 = "third"
@@ -63,5 +65,5 @@ cardinal x | x < 100 = wordnum (highpart x) ++ "-" ++ cardinal (lowpart x)
            | lowpart x == 3 = show x ++ "rd"
            | otherwise = show x ++ "th"
    where
-      lowpart x  = x `mod` 10 
-      highpart x = x - (x `mod` 10)
+      lowpart  n = n `mod` 10 
+      highpart n = n - (n `mod` 10)
