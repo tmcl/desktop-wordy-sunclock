@@ -1,0 +1,195 @@
+!xmodmap (Please leave that at the start, it lets ROX-Filer know its type)
+! This is an `xmodmap' input file for 
+!   PC 105 key, wide Delete, tall Enter (XFree86; US) keyboards.
+! Automatically generated on Mon Sep 22 09:24:22 2003 by kesuari with
+! XKeyCaps 2.46; Copyright (c) 1999 Jamie Zawinski <jwz@jwz.org>.
+! http://www.jwz.org/xkeycaps/
+!
+! This file presupposes that the keyboard is in the default state, and
+! may malfunction if it is not.
+!
+!remove Lock    = Caps_Lock
+remove Control = Control_L
+!remove Mod3 = Super_L
+remove Shift = Shift_L Shift_R
+!remove lock = Shift_Lock
+!remove lock = Caps_Lock
+remove mod1 = Alt_L Alt_L 
+!remove mod1 = Alt_L Alt_L Meta_L
+remove mod2 = Num_Lock
+!remove mod4 = Super_L Hyper_L
+!remove mod5 = Mode_switch ISO_Level3_Shift
+
+! Second group is Qwerty. Intl characters inserted with compose key.
+
+keycode 0xD7                       = XF86AudioPlay
+keycode 0x44                       = F2	XF86_Switch_VT_2
+keycode 0x45                       = F3	XF86_Switch_VT_3
+keycode 0x46                       = F4	XF86_Switch_VT_4
+keycode 0x47                       = F5	XF86_Switch_VT_5
+keycode 0x48                       = F6	XF86_Switch_VT_6
+keycode 0xB6                       = F13
+!m
+keycode 0xB7                       = XF86Cut KP_Insert
+!m
+keycode 0xB8                       = XF86Copy
+!mOOOOOOOOOOO
+keycode 0x5D                       = XF86Paste
+!m
+keycode 0xAE                       = XF86AudioLowerVolume	SunVideoLowerBrightness
+keycode 0xB0                       = XF86AudioRaiseVolume	SunVideoRaiseBrightness
+keycode 0xA0                       = XF86AudioMute
+!keycode 169                       = NoSymbol
+keycode 169                        = NoSymbol
+!	Eject, for Mac keyboard
+keycode 0xDE                       = SunPowerSwitch
+!	Sleep, for Sun keyboard
+!keycode 0x6F                      = NoSymbol
+
+keycode 0x14                       = bracketleft	braceleft	minus underscore
+keycode 0x15                       = bracketright	braceright	equal plus
+keycode 0x9D                       = degree
+
+keycode 0x0D                       = 4 dollar U20AC
+
+keycode 0x4F                       = KP_7
+keycode 0x50                       = KP_8
+keycode 0x51                       = KP_9
+
+keycode 0x42                       = Control_L
+
+keycode 0x53                       = KP_4
+keycode 0x54                       = KP_5
+keycode 0x55                       = KP_6
+
+
+keycode 113                        = Left
+keycode 116                        = Down
+
+keycode 0x57                       = KP_1
+keycode 0x58                       = KP_2
+keycode 0x59                       = KP_3
+! these relate to  the mac layout.
+keycode 0x25                       = Control_L
+keycode 0x40                       = Alt_L
+keycode 0x86                       = Multi_key
+!keycode 0x73                      = Super_L
+keycode 0x85                       = Super_L
+!keycode 64                        = Super_L
+keycode 0x81                       = Multi_key
+!keycode 0x74                      = NoSymbol
+!keycode 0x71                      = Mode_switch
+!keycode 0x6c                      = Mode_switch
+!keycode 0x75                      = Multi_key
+keycode 135                        = ISO_Level3_Shift
+keycode 0x5A                       = KP_0
+keycode 0x5B                       = KP_Decimal
+
+!keycode 37                        = Super_L
+
+keycode 0x4E                       = NoSymbol
+
+! these relate to the Sun layout.
+!keycode 245                       = Help
+!keycode 232                       = SunStop
+!keycode 133                       = SunAgain
+!keycode 134                       = SunProps
+!keycode 135                       = SunUndo
+!keycode 140                       = SunFront
+!keycode 248                       = SunCopy
+!keycode 191                       = SunOpen
+!keycode 192                       = SunPaste
+!keycode 122                       = SunFind
+!keycode 188                       = SunCut
+
+!keycode 134 = XF86Save 
+! blank
+
+add    Lock    = Caps_Lock
+add    Control = Control_L
+add    Shift = Shift_L Shift_R
+add    mod1 = Alt_L Alt_R
+add    mod2 = Num_Lock
+!add    mod3 = Super_L
+!!add    mod4 = Super_L, Hyper_L
+!add    mod5 = Mode_switch ISO_Level3_Shift
+!!add    Mod3    = Super_L
+
+!pointer = 1 6 3 4 5 2 2 
+
+keycode 0x3F   =  KP_Multiply	U2020
+
+!XSAMPA as kbd 2, Arabic as 2+caps, ru&kk-Cyrillic as 3
+!keycode 49   = grave asciitilde U2018 U201C
+!keycode 0x31 = Escape
+keycode 0x0A  = less		1	U0268	U0650	U044E	U042E
+keycode 0x0B  = greater		2	U0259	at	U04D9	U04D8
+keycode 0x0C  = dollar		3	U025C	U025E	U044D	U042D
+keycode 0x0D  = braceleft	4	U027E	U0630	U0493	U0492
+keycode 0x0E  = braceright	5	U026B	U062B	U0436	U0416
+!keycode 15   = asciicircum	6	U0250	U064E	U044F	U042F
+keycode 0xF   = asciicircum	6	U0250 U064E U044F U042F
+keycode 0x10  = ampersand	7	U0264	U06AD	U04A3	U04A2
+keycode 0x11  = asterisk	8	U0275	U0261	U04E9	U04E8
+keycode 0x12  = parenleft	9	U0306	U0306
+keycode 0x13  = parenright	0	U0289		U064F	U04AF	U04AE
+keycode 0x14  = bracketleft	numbersign
+keycode 0x15  = bracketright	percent	U032A	braceright	 U0448	U0428
+
+keycode 0x18 = apostrophe quotedbl	U2019 U201D U2019 U201D 
+keycode 0x1B = p	P	U0278	U067E	U043F	U041F
+keycode 0x1C = y	Y	U028F	U064A	U044B	U042B
+keycode 0x1D = f	F	U00B7	U0641	U0444	U0424
+keycode 0x1E = g	G	U0263	U06AF	U0433	U0413
+keycode 0x1F = c	C	U03C8 U03A8	
+keycode 0x20 = r	R	U0279	U0631	U0440	U0420
+keycode 0x21 = l	L	U028E	U0644	U043B	U041B
+keycode 0x22 = slash	question U0294	question U044C	U042C
+keycode 0x23 = equal	plus	equal	plus	U044A	U042A
+
+keycode	0x26 =	a	A	U0251	U0627	U0430	U0410
+keycode	0x27 =	o	O	U0254	U06C4	U043E	U041E
+keycode	0x28 =	e	E	U025B	U06D0	U0435	U0415
+keycode	0x29 =	u	U	U028A	U0648	U0443	U0423
+keycode	0x2A =	i	I	U026A	U0649	U0438	U0418
+keycode	0x2B =	d	D	eth	U062F	eth	U0414
+keycode	0x2C =	h	H	U02B0	U062D	U04BB	U04BA
+keycode	0x2D =	t	T	U03B8	U062A	U0442	U0422
+keycode	0x2E =	n	N	U014B	U0646	U043D	U041D
+keycode	0x2F =	s	S	U0283	U0633	U0441	U0421
+keycode	0x30 =	minus	U2014 underscore U2010	U0447	U0427
+
+keycode	0x34 =	semicolon colon	U02D0	colon	semicolon colon
+keycode	0x35 =	q	Q	U0252	U0642	U049B	U049A
+keycode	0x36 =	j	J	U0272	U062C	U0439	U0419
+keycode	0x37 =	k	K	U026C	U0643	U043A	U041a
+keycode	0x38 =	x	X	U03C7	U0647	U0445	U0425
+keycode	0x39 =	b	B	U03B2	U0628	U0431	U0411
+keycode	0x3A =	m	M	U026F	U0645	U043C	U041C
+keycode	0x3B =	w	W	U028D	U06CA	U04B1	U04B0
+keycode	0x3C =	v	V	U028C	U06A4	U0432	U0412
+keycode	0x3D =	z	Z	U0292	U0632	U0437	U0417
+
+keycode	0x19	= comma 	exclam	U02CC	U0302 
+keycode 0x1A	= period	at	U02C8	U030C	U02C8	U030C
+keysym grave	= grave	asciitilde U2018 U201C
+keycode 0x22	= slash	question U0294	U0301
+keycode 0x34	= semicolon	colon	U02D0	U0308
+keycode 0x30	= minus	U2014 underscore U0304
+!keycode 0x1A = period	greater	U02C8	greater	U0447	U0427
+!keycode 0x19 = comma	less	U02CC	less	comma	period
+!keycode 0x18 = apostrophe quotedbl	U2019 U201D U2019 U201D 
+!keycode 49 = grave asciitilde U2018 U201C
+!
+keycode	0x3B =	w	W	U028D	U06CA	U04B1	U04B0
+keycode	0x3C =	v	V	U028C	U06A4	U0432	U0412
+
+!keycode 0x09 = grave asciitilde U2018 U201C
+!keycode 0x31 = Escape
+
+keycode 0x33	= backslash	bar	U0300 U0300
+keycode 0x16 = BackSpace
+
+!keycode 64 = NoSymbol
+!keycode 108 = NoSymbol
+keycode 118 = underscore

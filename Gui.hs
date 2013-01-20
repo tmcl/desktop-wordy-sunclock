@@ -2,7 +2,6 @@ module Main (main)
 where
 
 import Data.Time.LocalTime
-import qualified Data.Text as T
 import Graphics.UI.Gtk
 import System.Environment
 import TimeToString
@@ -143,7 +142,7 @@ getTimestring :: (TimeOfDay -> String) -> IO String
 getTimestring fn = getZonedTime >>= (return . localTimeOfDay . zonedTimeToLocalTime) >>= (return . fn) 
 
 timeToWords :: TimeOfDay -> String
-timeToWords = (((++) "it's ") . (T.unpack . wordyTime'))
+timeToWords = (((++) "it's ") . wordyTime')
      where wordyTime' t =  wordyTime (toInteger $ todHour t) (toInteger $ todMin t)
 
 getHorastring :: Location -> DayFormatter -> IO String
