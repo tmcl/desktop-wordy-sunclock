@@ -9,6 +9,6 @@ export APP_DIR
 APP_NAME="`basename $APP_DIR`"
 EXEC_NAME="`basename $0`"
 
-if [[ -e $APP_DIR/dist/build/tristansClock/tristansClock ]] || xterm -e "cd $APP_DIR; cabal configure && cabal build || read blah"
+[[ -e $APP_DIR/dist/build/tristansClock/tristansClock ]] || xterm -e "cd $APP_DIR; cabal configure && cabal build || read blah"
 
 $APP_DIR/dist/build/tristansClock/tristansClock 
