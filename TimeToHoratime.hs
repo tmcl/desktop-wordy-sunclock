@@ -1,23 +1,19 @@
 {-# LANGUAGE OverloadedStrings #-}
-module TimeToHoratime( dayOfWeek, horaTime, christmasWeek, horaRaw ) where
-
+module TimeToHoratime( dayOfWeek, horaTime, horaRaw ) where
 
 import Coordinates
 import Data.Time
 import Data.Time.Calendar.OrdinalDate
 import NumbersToWords
 import Text.Printf
-import System.Locale
 import Horatime
-import Utils
-
 
 rtWords :: RomanTime -> String
 rtWords t = makeRomanTimeWords a b
    where
       h = timepart t + (1/24)
       a = floor h
-      b = floor $ (h - (fromInteger $ floor h)) * 12
+      b = floor $ (h - fromInteger (floor h)) * 12
 
 nexthour :: (Num a, Ord a) => a -> a
 nexthour a 
@@ -48,11 +44,16 @@ bigpart x y | x == 12   = "sunrise"
             | x == 18   = "midday"
             | x == 0    = "sunset"
             | x ==  6   = "midnight"
-            | x <  12   = cardinal x ++ say "watch"
+            | x <  12   = cardinal x ++ say "watch" y
             | x >  12   = cardinal (x-12) ++ " hour"
             | otherwise = "foob?"
-	where
-		say str = y == 0 ? " " ++ str $ ""
+        -- where
+                -- say str = y == 0 ? " " ++ str $ ""
+
+say :: String -> Integer -> String
+say str y
+   | y == 0 = " " ++ str
+   | otherwise = ""
 
 data Refers = Same | Next
    deriving Eq
@@ -94,6 +95,7 @@ makeRomanTimeWords a b = shownSmallPart a b ++ pronoun a b ++ shownHourPart a b
 horaTime :: Location -> ZonedTime -> String
 horaTime l zt = (rtWords  $ romantime l zt)
 
+horaRaw :: Location -> ZonedTime -> String
 horaRaw l zt = printf "%.3f" (timepart $ romantime l zt)
       
 dayOfWeek :: Location -> ZonedTime -> String
@@ -104,39 +106,8 @@ dayOfWeek l zt = dayname ++ cardinal dom ++ " of " ++ month
       month = fmtMonth dd
       dayname = fmtDayname dd ++ " the "
 
+fmtDayname :: Day -> String
 fmtDayname = formatTime defaultTimeLocale "%#A"
+fmtMonth :: Day -> String
 fmtMonth   = formatTime defaultTimeLocale "%#B"
 
-liturgicalYear :: Day -> Integer
-liturgicalYear day 
-	| day >= advent = year + 1
-   | otherwise     = year
-	where
-		(year, _, _) = toGregorian day
-		advent       = addDays (3*7) (sundayBefore christmas)
-		christmas    = fromGregorian year 12 25
-
-sundayBefore :: Day -> Day
-sundayBefore day = addDays (-(toInteger . snd . mondayStartWeek) day) day
-
-christmasWeek :: Location -> ZonedTime -> String
-christmasWeek l zt = (fmtDayname dd) ++ " of " ++ weeknum ++ " week"
-   where
-      dd      = duskday l zt
-      weeknum = cardinal $ weekAfterChristmas dd
-
---christmasWeek' d = diffDays d christmas
-
---weekFromDay today fixed = 
-
-
-weekAfterChristmas d = weeknum + offset
-   where
-      offset | firstJanIsSunday = 0
-             | otherwise        = 1
-      firstJanIsSunday   = firstJanDoW == 0
-      ( _, firstJanDoW ) = sundayStartWeek firstJan
-      (year, _, _)       = toGregorian d
-      firstJan           = fromGregorian year 1 1
-      (weeknum, _)       = sundayStartWeek d
-   

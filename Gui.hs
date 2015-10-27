@@ -51,8 +51,7 @@ addButtons :: Location -> Window -> IO WindowProperties
 addButtons l window = do
    oclockPair  <- makeLabelledButton [ fnMaker $ getTimestring timeToWords ,
                                        fnMaker $ getTimestring timeToDigits ]
-   datePair    <- makeLabelledButton [ fnMaker $ getDatestring l dayOfWeek, 
-                                       fnMaker $ getDatestring l christmasWeek ]
+   datePair    <- makeLabelledButton [ fnMaker $ getDatestring l dayOfWeek ]
    horaPair    <- makeLabelledButton [ fnMaker $ getHorastring l horaFormatted, 
                                        fnMaker $ getHorastring l horaRaw ]
    setWindowSizeFromLabelSize window (propsButton oclockPair)
@@ -81,7 +80,7 @@ makeLabelledButton labelFunctions = do
 
 makeTimerButton :: (Label -> IO Bool) -> IO (Label, HandlerId)
 makeTimerButton fn = do
-   label     <- labelNew Nothing
+   label     <- (labelNew::Maybe String -> IO Label) Nothing
    _         <- fn label
    handlerId <- timeoutAdd (fn label) 3000
    return (label, handlerId)
